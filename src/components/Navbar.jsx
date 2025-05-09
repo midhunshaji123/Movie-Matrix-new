@@ -3,16 +3,23 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LogOut, Menu, Search } from 'lucide-react';
 import { contentTypeContext } from '../contexts/ContextAPI';
 import toast from 'react-hot-toast';
+import { useMobileMenu } from '../contexts/MobileMenuContext';
 
 const Navbar = () => {
 
     const { contentType, setContentType } = useContext(contentTypeContext)
 
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const { isMobileMenuOpen, setIsMobileMenuOpen } = useMobileMenu();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
+
+    // const toggleMobileMenu = () => {
+    //     setIsMobileMenuOpen(prev => !prev);
+    //   };
 
     const navigate = useNavigate();
 
@@ -31,7 +38,7 @@ const Navbar = () => {
         <>
             <header className='max-w-6xl mx-auto flex flex-wrap items-center justify-between p-4 h-20'>
                 {/* Logo & Desktop Navbar Items */}
-                <div className='flex items-center gap-10 z-50 ml-[-115px]'>
+                <div className='flex items-center gap-10 z-50'>
                     <Link to={"/"}>
                         <img src="/MLogo2.png" alt="MovieNest" className='w-32 sm:w-40' />
                     </Link>
@@ -76,19 +83,19 @@ const Navbar = () => {
 
                 {/* Mobile Navbar Items */}
                 {isMobileMenuOpen && (
-                    <div className='w-full sm:hidden mt-4 bg-black border rounded border-gray-800 p-2'>
-                        <button
+                    <div className='w-full sm:hidden mt-4 z-50 bg-black border rounded border-gray-800 p-2'>
+                        <Link to={"/"}
                             onClick={() => { dispatch(setContentType("movie")); toggleMobileMenu(); }}
                             className={`block p-2 hover:underline ${contentType === "movie" ? "text-red-500 font-bold" : ""}`}
                         >
                             Movies
-                        </button>
-                        <button
+                        </Link>
+                        <Link to={"/"}
                             onClick={() => { dispatch(setContentType("tv")); toggleMobileMenu(); }}
                             className={`block p-2 hover:underline ${contentType === "tv" ? "text-red-500 font-bold" : ""}`}
                         >
                             TV Shows
-                        </button>
+                        </Link>
                         <Link to={"/history"} className='block p-2 hover:underline' onClick={toggleMobileMenu}>
                             Search History
                         </Link>

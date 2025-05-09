@@ -4,14 +4,17 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import ContextAPI from './contexts/ContextAPI.jsx'
+import { MobileMenuProvider } from './contexts/MobileMenuContext.jsx'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
 <ContextAPI>
-      <BrowserRouter>
-          <App/>
-      </BrowserRouter>
+        <MobileMenuProvider>
+          <BrowserRouter>
+              <App/>
+          </BrowserRouter>
+        </MobileMenuProvider>
 </ContextAPI>
   </StrictMode>,
 )
